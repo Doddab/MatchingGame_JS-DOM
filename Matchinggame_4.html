@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>  Matching Game  </title>
+<h1> Matching Game </h1>
+<p> Click on the extra smiling face on the left </p>
+<div id="leftSide"></div>
+<div id="rightSide"></div>
+<style>
+img{position:absolute}
+div{position:absolute; width:500px; height:500px}
+#rightSide { left: 650px;
+            border-left: 1px solid black }
+</style>
+</head>
+<script>
+var numberOfFaces=5;
+var theLeftSide =
+  document.getElementById("leftSide");
+var theRightSide =
+    document.getElementById("rightSide");
+var theBody =
+ document.getElementsByTagName("body")[0];
+var count=0;
+function generateFaces(){
+for(var i=0;i<numberOfFaces;i++){
+  if(count)numberOfFaces=6;
+  var imgg = document.createElement("img");
+  imgg.src = "smile.png";
+  var rnt = Math.floor(Math.random() * (500 - 100));
+  imgg.style.top=rnt + "px";
+  var rnl = Math.floor(Math.random() * (500 - 100));
+  imgg.style.left=rnl + "px";
+  theLeftSide.appendChild(imgg);
+
+  //var lc = theRightSide.childNodes[0].lastChild;
+  //alert(lc);
+  //theRightSide.removeChild(rightSide.childNodes[0].childNodes[2]);
+}
+var leftSideImages = theLeftSide.cloneNode(true);
+theRightSide.appendChild(leftSideImages);
+var lc = document.getElementsByTagName("div")[0];
+var lc2 = document.getElementsByTagName("div")[2];
+lc2.removeChild(lc2.lastChild);
+
+theLeftSide.lastChild.onclick=
+    function nextLevel(event){
+
+        event.stopPropagation();
+
+      //numberOfFaces += 6;
+
+        while(theLeftSide.firstChild && theRightSide.firstChild){
+        theLeftSide.removeChild(theLeftSide.firstChild);
+        theRightSide.removeChild(theRightSide.firstChild);
+      }
+      count=1;
+        generateFaces();
+
+};
+
+theBody.onclick = function gameOver() {
+
+    alert("Game Over!");
+    theBody.onclick = null;
+    theLeftSide.lastChild.onclick = null;
+    //theBody.removeChild(theBody.firstChild);
+
+};
+
+
+}
+</script>
+<body onload=generateFaces()>
+
+</body>
+</html>
